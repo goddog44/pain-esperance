@@ -66,7 +66,36 @@ const values = [
   ['Service', 'Nous mettons nos ressources et nos compétences au service des autres.'],
 ];
 
-function Brand({ light = false, logo = '/logo_header.png' }: { light?: boolean; logo?: string }) {
+const executiveBoard = [
+  {
+    role: 'Président fondateur',
+    members: [{ name: 'Daniel Oswald Baboke', image: '/Profiles/Daniel_Oswald_Baboke.jpeg' }],
+  },
+  {
+    role: 'Vice-président',
+    members: [{ name: 'Stephane Bolivard Mbent-Ntang', image: '/Profiles/Stephane_Bolivard_Mbent-Ntang.jpeg' }],
+  },
+  { role: 'Secrétaire général(e)', members: [] },
+  { role: 'Secrétaire général(e) adjoint(e)', members: [] },
+  {
+    role: 'Trésorier',
+    members: [{ name: 'Nelson Mandela Olama', image: '/Profiles/Nelson_Mandela_Olama.jpeg' }],
+  },
+  { role: 'Trésorier(ère) adjoint(e)', members: [] },
+  {
+    role: 'Responsable des projets humanitaires',
+    members: [{ name: 'Awana Vincent de Paul', image: '/Profiles/Awana_Vincent_De_Paul.jpeg' }],
+  },
+  {
+    role: 'Responsable de la communication et des partenariats',
+    members: [
+      { name: 'Dzelamonyuy Honore Dezkem', image: '/Profiles/Dzelamonyuy_Honore_Dzekem.jpeg' },
+      { name: 'Essono Jordan Ryan', image: '/Profiles/Essono_Jordan_Ryan.png' },
+    ],
+  },
+];
+
+function Brand({ light = false, logo = 'assets/logo_header.png' }: { light?: boolean; logo?: string }) {
   return (
     <a href="#accueil" className={`brand ${light ? 'brand-light' : ''}`} aria-label="Pain et Espérance, accueil">
       <img className="brand-logo" src={logo} alt="Pain & Espérance" />
@@ -116,7 +145,7 @@ function App() {
         <div className="container header-inner">
           <Brand />
           <nav className={`main-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Navigation principale">
-            <a href="#accueil">Accueil</a><a href="#mission">Notre mission</a><a href="#vision">Notre vision</a><a href="#galerie">Galerie</a><a href="#actualites">Actualités</a><a href="#soutenir">Nous soutenir</a><a href="#contact">Contact</a>
+            <a href="#accueil">Accueil</a><a href="#mission">Notre mission</a><a href="#vision">Notre vision</a><a href="#bureau">Bureau</a><a href="#galerie">Galerie</a><a href="#actualites">Actualités</a><a href="#soutenir">Nous soutenir</a><a href="#contact">Contact</a>
           </nav>
           <div className="header-actions"><a className="header-donate" href="#don"><Heart size={15} fill="currentColor" />Faire un don</a><button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Ouvrir le menu">{menuOpen ? <X /> : <Menu />}</button></div>
         </div>
@@ -170,10 +199,43 @@ function App() {
 
         <section className="values section-pad"><div className="container values-grid"><div><SectionIntro eyebrow="Qui sommes-nous ?" title="Une association chrétienne engagée auprès des enfants." text="Notre mission est de répondre aux besoins essentiels tout en apportant un accompagnement humain, affectif et spirituel." /><div className="motto"><span>Notre devise</span><strong>« Nourrir le corps,<br />éveiller l’âme. »</strong></div></div><div className="value-cards">{values.map(([name, text], index) => <article key={name}><span>0{index + 1}</span><h3>{name}</h3><p>{text}</p></article>)}</div></div></section>
 
+        <section className="executive section-pad" id="bureau">
+          <div className="container">
+            <SectionIntro
+              eyebrow="Notre équipe"
+              title="Le bureau exécutif"
+              text="Les femmes et les hommes qui mettent leurs compétences au service de la mission de Pain & Espérance."
+            />
+            <p className="executive-note">La composition est en cours de finalisation. Les postes vacants seront complétés ultérieurement.</p>
+            <div className="executive-grid">
+              {executiveBoard.map(({ role, members }) => (
+                <article className={`executive-card ${members.length === 0 ? 'executive-card-open' : ''}`} key={role}>
+                  {members.length > 0 ? (
+                    <div className={`executive-members ${members.length > 1 ? 'executive-members-multiple' : ''}`}>
+                      {members.map(({ name, image }) => (
+                        <div className="executive-member" key={name}>
+                          <img src={image} alt={`Portrait de ${name}`} loading="lazy" />
+                          <h3>{name}</h3>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="executive-open-mark" aria-hidden="true"><Users size={25} strokeWidth={1.4} /></div>
+                  )}
+                  <div className="executive-role">
+                    <span>{members.length > 0 ? 'Bureau exécutif' : 'Poste à pourvoir'}</span>
+                    <h4>{role}</h4>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="contact section-pad" id="contact"><div className="container contact-grid"><div><SectionIntro eyebrow="Contact" title="Nous sommes à votre écoute." text="Vous souhaitez obtenir des informations, proposer votre aide, devenir partenaire ou soutenir une action ? Contactez-nous." /><div className="contact-details"><p><Mail size={18} /><span>E-mail<strong>contact.info@pain-esperance.com</strong></span></p><p><Phone size={18} /><span>Téléphone<strong>+237 656573713 </strong></span></p><p><MessageCircle size={18} /><span>WhatsApp<strong>+237 656573713</strong></span></p><p><Landmark size={18} /><span>Adresse<strong>[À compléter]</strong></span></p></div></div><form className="form-card contact-form" onSubmit={submitContact}><label>Nom et prénom<input required name="name" placeholder="Votre nom" /></label><label>Téléphone / E-mail<input required name="contact" placeholder="Comment vous joindre ?" /></label><label>Objet<input required name="subject" placeholder="Le sujet de votre message" /></label><label>Votre message<textarea required name="message" rows={5} placeholder="Écrivez votre message..." /></label><button className="submit-button" type="submit">Envoyer le message <ArrowRight size={16} /></button>{contactSent && <p className="form-success"><Check size={16} />Votre message est prêt à être pris en compte. Merci.</p>}</form></div></section>
       </main>
 
-      <footer className="site-footer"><div className="container footer-top"><div><Brand light logo="/logo_footer.png" /><p className="footer-about">Association chrétienne engagée auprès des enfants vulnérables.</p><div className="socials"><a href="#contact" aria-label="Instagram"><Instagram size={17} /></a><a href="#contact" aria-label="WhatsApp"><MessageCircle size={17} /></a><a href="#contact" aria-label="Facebook"><span>f</span></a></div></div><div><h4>Navigation</h4><a href="#mission">Notre mission</a><a href="#vision">Notre vision</a><a href="#galerie">Galerie</a></div><div><h4>Nous soutenir</h4><a href="#don">Faire un don</a><a href="#benevole">Devenir bénévole</a><a href="#contact">Devenir partenaire</a></div><div className="footer-quote"><span></span><p>« La foi se vit aussi dans l’action. »</p><small>— Pain & Espérance</small></div></div><div className="container footer-bottom"><span>© PAIN & ESPÉRANCE — Tous droits réservés.</span><span>Une association au service des enfants, de l’amour et de l’espérance.</span></div></footer>
+      <footer className="site-footer"><div className="container footer-top"><div><Brand light logo="assets/logo_footer.png" /><p className="footer-about">Association chrétienne engagée auprès des enfants vulnérables.</p><div className="socials"><a href="#contact" aria-label="Instagram"><Instagram size={17} /></a><a href="#contact" aria-label="WhatsApp"><MessageCircle size={17} /></a><a href="#contact" aria-label="Facebook"><span>f</span></a></div></div><div><h4>Navigation</h4><a href="#mission">Notre mission</a><a href="#vision">Notre vision</a><a href="#bureau">Bureau exécutif</a><a href="#galerie">Galerie</a></div><div><h4>Nous soutenir</h4><a href="#don">Faire un don</a><a href="#benevole">Devenir bénévole</a><a href="#contact">Devenir partenaire</a></div><div className="footer-quote"><span></span><p>« La foi se vit aussi dans l’action. »</p><small>— Pain & Espérance</small></div></div><div className="container footer-bottom"><span>© PAIN & ESPÉRANCE — Tous droits réservés.</span><span>Une association au service des enfants, de l’amour et de l’espérance.</span></div></footer>
 
       {activeImage && <div className="lightbox" role="dialog" aria-modal="true" onClick={() => setActiveImage(null)}><button onClick={() => setActiveImage(null)} aria-label="Fermer"><X /></button><img src={activeImage.image} alt={activeImage.title} onClick={(event) => event.stopPropagation()} /><div><small>{activeImage.category}</small><strong>{activeImage.title}</strong></div></div>}
     </div>
