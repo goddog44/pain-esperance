@@ -75,7 +75,10 @@ const executiveBoard = [
     role: 'Vice-président',
     members: [{ name: 'Stephane Bolivard Mbent-Ntang', image: '/Profiles/Stephane_Bolivard_Mbent-Ntang.jpeg' }],
   },
-  { role: 'Secrétaire général(e)', members: [] },
+  {
+    role: 'Secrétaire générale',
+    members: [{ name: 'CHRISTINA JULIA LE', image: '/Profiles/LE_MBOUNG CHRISTINA_JULIA.jpeg' }],
+  },
   { role: 'Secrétaire général(e) adjoint(e)', members: [] },
   {
     role: 'Trésorier',
@@ -88,10 +91,15 @@ const executiveBoard = [
   },
   {
     role: 'Responsable de la communication et des partenariats',
-    members: [
-      { name: 'Dzelamonyuy Honore Dezkem', image: '/Profiles/Dzelamonyuy_Honore_Dzekem.jpeg' },
-      { name: 'Essono Jordan Ryan', image: '/Profiles/Essono_Jordan_Ryan.png' },
-    ],
+    members: [{ name: 'DZELAMONYUY HONORE DEZKEM', image: '/Profiles/Dzelamonyuy_Honore_Dzekem.jpeg' }],
+  },
+  {
+    role: 'Responsable de la communication et des partenariats',
+    members: [{ name: 'Mbounja Michaëlla Yeillen-Rose', image: '/Profiles/Mbounja_Michaëlla_Yeillen-Rose.jpeg' }],
+  },
+  {
+    role: 'Responsable de la communication et des partenariats',
+    members: [{ name: 'ESSONO JORDAN RYAN', image: '/Profiles/Essono_Jordan_Ryan.png' }],
   },
 ];
 
